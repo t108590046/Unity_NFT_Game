@@ -300,6 +300,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269150824}
   m_CullTransparentMesh: 1
+--- !u!1 &321102114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 321102116}
+  - component: {fileID: 321102115}
+  m_Layer: 0
+  m_Name: coinScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &321102115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321102114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9edec2c726490e548bfab7624e7d25cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Coins: 1000
+--- !u!4 &321102116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321102114}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.444357, y: -6.613881, z: 191.31795}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &339475023
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,7 +1014,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 48
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 63
     m_Alignment: 4
@@ -1247,7 +1291,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c0d31661c23ff4296d34bb23e33456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShopItemsList:
+  - Image: {fileID: 21300000, guid: 6a5440bc977726b43b068c85a2ec09dd, type: 3}
+    Price: 25
+    IsPurchased: 0
+  - Image: {fileID: 21300000, guid: 7737f6d1106477943853ddac61e62fad, type: 3}
+    Price: 50
+    IsPurchased: 0
+  - Image: {fileID: 21300000, guid: 8f2c85669a8532c46953abda2c557bbf, type: 3}
+    Price: 75
+    IsPurchased: 0
+  - Image: {fileID: 21300000, guid: 2f5a9efccebf43a45bb25360ad17aa26, type: 3}
+    Price: 100
+    IsPurchased: 0
   ShopScrollView: {fileID: 731767612}
+  CoinsText: {fileID: 339475025}
 --- !u!1 &1589210989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1405,7 +1463,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.71494716, g: 0.14330718, b: 0.7830189, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
