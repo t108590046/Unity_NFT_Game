@@ -24,7 +24,9 @@ public class Web3Wallet
             clipBoard = GUIUtility.systemCopyBuffer;
             await Task.Delay(100);
         }
+        return clipBoard;
         // check if clipboard response is valid
+        /*
         if (clipBoard.StartsWith("0x") && clipBoard.Length == 66)
         {
             return clipBoard;
@@ -33,6 +35,7 @@ public class Web3Wallet
         {
             throw new Exception("transaction error");
         }
+        */
     }
 
     public static async Task<string> Sign(string _message)
