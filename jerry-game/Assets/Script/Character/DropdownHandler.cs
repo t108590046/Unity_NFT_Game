@@ -12,14 +12,16 @@ public class DropdownHandler : MonoBehaviour
     void Start()
     {
         var dropdown = transform.GetComponent<Dropdown>();
-        
-        dropdown.options.Clear();
+        //dropdown.options.Clear();
 
         List<string> items = new List<string>();
         items.Add("balanceOf");
         items.Add("Mint");
         items.Add("GetSubTokens");
         items.Add("Separate");
+        items.Add("SeparateOne");
+        items.Add("GetAllNFTTokenID");
+        items.Add("Combine");
 
         foreach(var item in items)
         {
@@ -27,6 +29,7 @@ public class DropdownHandler : MonoBehaviour
         }
 
         DropdownItemSelected(dropdown);
+        dropdown.RefreshShownValue();
         dropdown.onValueChanged.AddListener(delegate {DropdownItemSelected(dropdown);});
         runBtn.onClick.AddListener(delegate {RunMethod();});
     }
@@ -37,9 +40,6 @@ public class DropdownHandler : MonoBehaviour
         method = dropdown.options[index].text;
         switch (method)
         {
-            case "balanceOf":
-                input.placeholder.GetComponent<Text>().text = "";
-                break;
             case "Mint":
                 input.placeholder.GetComponent<Text>().text = "Enter New TokenID...";
                 break;
@@ -49,7 +49,14 @@ public class DropdownHandler : MonoBehaviour
             case "Separate":
                 input.placeholder.GetComponent<Text>().text = "Enter your NFT TokenID";
                 break;
+            case "Combine":
+                input.placeholder.GetComponent<Text>().text = "Enter NFT-TokenID,SubTokenID1,...";
+                break;
+            case "SeparateOne":
+                input.placeholder.GetComponent<Text>().text = "Enter NFT-TokenID,SubTokenID";
+                break;
             default:
+                input.placeholder.GetComponent<Text>().text ="";
                 break;
         }
     }
@@ -69,6 +76,15 @@ public class DropdownHandler : MonoBehaviour
                 break;
             case "Separate":
                  Separate();
+                break;
+            case "GetAllNFTTokenID":
+                 GetAllNFTTokenID();
+                break;
+            case "Combine":
+                 Combine();
+                break;
+            case "SeparateOne":
+                 SeparateOne();
                 break;
             default:
                 break;
@@ -124,5 +140,56 @@ public class DropdownHandler : MonoBehaviour
             showText.text = "Separate NFT 失敗 !!";
         }
         
+    }
+
+    async void GetAllNFTTokenID()
+    {
+        List<string> responses = await ERC3664.GetAllNFTTokenID();
+        if(responses.Count == 0) showText.text = "Error!! Try Again";
+        else 
+        {
+            showText.text = "您的NFT-TokenIDs: ";
+            for (int i = 0; i < responses.Count; i++)
+            {
+                if(i == 0)  showText.text += responses[i];
+                else showText.text += ","+ responses[i];
+            }
+        }
+    }
+
+    async void Combine()
+    {
+        string inputData = input.text;
+        char [] c = {','};
+        string[] tokenIds = inputData.Split(c,2);
+        string nftTokenID = tokenIds[0];
+        string []subTokenIds = tokenIds[1].Split(c);
+        string response = await ERC3664.Combine(nftTokenID, subTokenIds);
+        if (response.StartsWith("0x") && response.Length == 66)
+        {
+            showText.text = "Combine NFT 成功 !!";
+        }
+        else
+        {
+            showText.text = "Combine NFT 失敗 !!";
+        }
+    }
+
+    async void SeparateOne()
+    {
+        string inputData = input.text;
+        char [] c = {','};
+        string[] tokenIds = inputData.Split(c,2);
+        string nftTokenID = tokenIds[0];
+        string subTokenId = tokenIds[1];
+        string response = await ERC3664.SeparateOne(nftTokenID, subTokenId);
+        if (response.StartsWith("0x") && response.Length == 66)
+        {
+            showText.text = "SeparateOne  成功 !!";
+        }
+        else
+        {
+            showText.text = "SeparateOne  失敗 !!";
+        }
     }
 }
