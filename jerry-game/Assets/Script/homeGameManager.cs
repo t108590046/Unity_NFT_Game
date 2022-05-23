@@ -16,10 +16,6 @@ public class homeGameManager : MonoBehaviour
     public virtual void Start()
     {
         backgroundMusic = GetComponent<AudioSource>();
-        settingBox = GameObject.Find("setting");
-        infoBox = GameObject.Find("info");
-        settingBox.SetActive(false);
-        infoBox.SetActive(false);
     }
     
     

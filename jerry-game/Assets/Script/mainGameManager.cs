@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Animations.Rigging;
 
 public class mainGameManager : MonoBehaviour
@@ -8,17 +9,25 @@ public class mainGameManager : MonoBehaviour
     public GameObject apple;
     private GameObject mainCharacter;
     public GameObject bag;
+    public GameObject shop;
     private bool foodShow = false;
     public Rig eyeOnApple;
     private Touch touch;
     private float foodMoveSpeedRate = 0.003f;
     private Animator animator;
+    public Text coinsRemain;
+    public coin playerCoin;
+    public Text intimacyText;
+    public intimacy myIntimacy;
+    public bool backgroundMusicOn = true;
+    public GameObject soundButtonImage;
 
     private float disToFood_x = 0;
     private float disToFood_y = 0;
     private Vector3 prviousCharatcerPosition = new Vector3(0, -1.75f, 5);
     private bool lastWalkinRight = false;
-    
+    protected AudioSource backgroundMusic;
+
 
 
 
@@ -26,11 +35,13 @@ public class mainGameManager : MonoBehaviour
     {
         apple = GameObject.Find("Apple");
         bag = GameObject.Find("bag");
+        shop = GameObject.Find("shop");
         mainCharacter = GameObject.Find("mainCharacter");
-        apple.SetActive(false);
-        bag.SetActive(false);
         eyeOnApple.weight = 0;
         animator = mainCharacter.GetComponent<Animator>();
+        coinsRemain.text = playerCoin.coinRemain.ToString();
+        intimacyText.text = myIntimacy.currentIntimacy.ToString();
+        backgroundMusic = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -135,5 +146,20 @@ public class mainGameManager : MonoBehaviour
         }
     }
 
+    public void soundButtomClick()
+    {
+        this.backgroundMusicOn = !backgroundMusicOn;
+        Image soundBtnImg = soundButtonImage.GetComponent<Image>();
 
+        if (backgroundMusicOn)
+        {
+            backgroundMusic.Play();
+            soundBtnImg.sprite = Resources.Load<Sprite>("new/speaker");
+        }
+        else
+        {
+            backgroundMusic.Pause();
+            soundBtnImg.sprite = Resources.Load<Sprite>("new/x");
+        }
+    }
 }
